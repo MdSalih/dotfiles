@@ -40,4 +40,9 @@ else
 	echo "source ~/.bash_profile" >> $HOME/.bashrc
 	echo -e "\t bashrc is now loading bash_profile"
 fi
+
+# Source new .bash_profile
+echo "Sourcing new .bash_profile"
+. ~/.bash_profile
+
 echo "All done"
