@@ -1,0 +1,27 @@
+[user]
+	name        = "Mohammad Noor"
+	email       = git@mdsalih.com
+
+[color]
+	diff        = auto
+	status      = auto
+	branch      = auto
+	interactive = auto
+	ui          = true
+	pager       = true
+
+[alias]
+	ci          = commit
+	co          = checkout
+	st          = status
+	br          = branch
+	l           = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+	ll          = log --abbrev-commit --stat
+	ma          = checkout master
+
+[core]
+	editor      = vim
+[diff]
+	tool        = vimdiff
+[difftool]
+	prompt      = false

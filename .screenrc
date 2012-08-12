@@ -1,0 +1,47 @@
+startup_message off                                      #  switch off startup msg
+autodetach on                                            #  autodetach on hangup
+defscrollback 10000                                      #  more scrollback
+attrcolor b ".I"                                         #  allow bold colors - necessary for some reason
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' #  tell screen how to set colors. AB = background, AF=foreground
+defbce "on"                                              #  erase background with current bg color
+altscreen on                                             #  restore window contents after using (e.g.) vi
+nonblock on                                              #  If a window goes unresponsive, don't block the whole session waiting for it.
+attrcolor b ".I"                                         #  allow bold colors - necessary for some reason
+defflow off                                              #  disable Ctrl-S/Ctrl-Q "flow control"
+hardstatus alwayslastline                                #  statusline at bottom
+hardstatus string '%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]'
+
+# Window Navigiation - Ctrl+Alt+Left/Right - also F1,F2
+bindkey ^[^[[D prev
+bindkey ^[^[[C next
+bindkey -k k3 prev
+bindkey -k k4 next
+
+# Window numbering starts at 1
+bind c screen 1 
+bind 0 select 10
+
+#Split window resizing
+bind + resize +5
+bind - resize -5
+bind = resize =
+
+#Remove dangerous keybindings
+bind ^\
+bind \\
+bind ^h
+bind h
+bind ^Q
+bind q
+bind ^S
+bind s
+
+#Unbind some keys i want to use elsewhere
+bindkey -k k8
+bindkey -k k9
+
+#navigate regions
+bind j focus down
+bind k focus up
+bind t focus top
+bind b focus bottom

@@ -1,0 +1,48 @@
+[submodule ".vimfiles/bundle/compview"]
+	path = .vimfiles/bundle/compview
+	url = https://github.com/vim-scripts/compview.git
+[submodule ".vimfiles/bundle/FuzzyFinder"]
+	path = .vimfiles/bundle/FuzzyFinder
+	url = https://github.com/vim-scripts/FuzzyFinder.git
+[submodule ".vimfiles/bundle/gundo.vim"]
+	path = .vimfiles/bundle/gundo.vim
+	url = https://github.com/sjl/gundo.vim.git
+[submodule ".vimfiles/bundle/L9"]
+	path = .vimfiles/bundle/L9
+	url = https://github.com/vim-scripts/L9.git
+[submodule ".vimfiles/bundle/nerdtree"]
+	path = .vimfiles/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule ".vimfiles/bundle/numbers.vim"]
+	path = .vimfiles/bundle/numbers.vim
+	url = https://github.com/myusuf3/numbers.vim.git
+[submodule ".vimfiles/bundle/obviousmode"]
+	path = .vimfiles/bundle/obviousmode
+	url = https://github.com/bsl/obviousmode.git
+[submodule ".vimfiles/bundle/supertab"]
+	path = .vimfiles/bundle/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule ".vimfiles/bundle/tabular"]
+	path = .vimfiles/bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule ".vimfiles/bundle/tagbar"]
+	path = .vimfiles/bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
+[submodule ".vimfiles/bundle/taglist.vim"]
+	path = .vimfiles/bundle/taglist.vim
+	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule ".vimfiles/bundle/TaskList.vim"]
+	path = .vimfiles/bundle/TaskList.vim
+	url = https://github.com/vim-scripts/TaskList.vim.git
+[submodule ".vimfiles/bundle/vim-colors-solarized"]
+	path = .vimfiles/bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule ".vimfiles/bundle/vim-fugitive"]
+	path = .vimfiles/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vimfiles/bundle/vim-slime"]
+	path = .vimfiles/bundle/vim-slime
+	url = https://github.com/jpalardy/vim-slime.git
+[submodule ".vimfiles/bundle/vim-unimpaired"]
+	path = .vimfiles/bundle/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
