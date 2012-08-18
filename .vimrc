@@ -99,8 +99,8 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 " strip trailing whitespace
 map <silent><leader>ss :call StripWhitespace ()<CR>
 " Fugitive mappings
-map <leader>gs :Gstatus<CR>
-map <leader>gc :Gcommit<CR>
+map <leader>gs :Gstatus<CR><C-w>20+
+map <leader>gc :Gcommit<CR><C-w>20+
 map <leader>gd :Gdiff<CR>
 map <leader>gw :Gwrite<CR>
 map <leader>gr :Gread<CR>
