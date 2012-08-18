@@ -89,18 +89,11 @@ map <c-h> <c-w>h
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
-" firefox like tab navigation
-nnoremap <C-S-tab> :tabprevious<CR>
-nnoremap <C-tab>   :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-inoremap <C-tab>   <Esc>:tabnext<CR>i
-inoremap <C-t>     <Esc>:tabnew<CR>
 " strip trailing whitespace
 map <silent><leader>ss :call StripWhitespace ()<CR>
 " Fugitive mappings
-map <leader>gs :Gstatus<CR><C-w>20+
-map <leader>gc :Gcommit<CR><C-w>20+
+map <leader>gs :Gstatus<CR><C-w>10+
+map <leader>gc :Gcommit<CR><C-w>10+
 map <leader>gd :Gdiff<CR>
 map <leader>gw :Gwrite<CR>
 map <leader>gr :Gread<CR>
