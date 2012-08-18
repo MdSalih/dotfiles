@@ -46,3 +46,6 @@
 [submodule ".vimfiles/bundle/vim-unimpaired"]
 	path = .vimfiles/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+[submodule ".vimfiles/bundle/upAndDown"]
+	path = .vimfiles/bundle/upAndDown
+	url = https://github.com/vim-scripts/upAndDown.git
