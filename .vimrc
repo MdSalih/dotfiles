@@ -118,7 +118,8 @@ nmap <leader>rnt :NumbersToggle<CR>
 map <leader>tl <Plug>TaskList
 " CompView (search result list pane)
 map <leader>sl <Plug>CompView
-
+" ZoomWin
+map <leader><leader> <c-w>o
 "*****************************************************************************
 " Auto Commands
 "*****************************************************************************

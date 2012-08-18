@@ -49,3 +49,6 @@
 [submodule ".vimfiles/bundle/upAndDown"]
 	path = .vimfiles/bundle/upAndDown
 	url = https://github.com/vim-scripts/upAndDown.git
+[submodule ".vimfiles/bundle/ZoomWin"]
+	path = .vimfiles/bundle/ZoomWin
+	url = https://github.com/vim-scripts/ZoomWin.git
