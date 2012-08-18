@@ -15,3 +15,4 @@ Execute the `bootstrap.sh` script to setup dotfiles. Pass path to dotfiles direc
 ```bash
 ~/git/github/dotfiles/bootstrap.sh ~/git/github/dotfiles
 ```
+test
