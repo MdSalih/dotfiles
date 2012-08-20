@@ -179,3 +179,5 @@ let g:tlTokenList = ['TODO', 'FIXME', 'XXX', 'CHAT']
 let g:tlRememberPosition =1
 " Powerline 
 " let g:Powerline_symbols = 'fancy'
+" MiniBufExplorer
+let g:miniBufExplSplitBelow=0
