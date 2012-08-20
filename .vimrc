@@ -35,6 +35,7 @@ set wrapscan                                       " searches wrap around EOF
 set shiftwidth=2                                   " Use indents of 2 spaces
 set tabstop=2                                      " Indentation every 2 columns
 set nowrap                                         " dont wrap
+set expandtab                                      " expand tabs to spaces
 "set autoindent                                     " Copy indent from previous line
 
 "*****************************************************************************
@@ -126,6 +127,7 @@ map <leader><leader> <c-w>o
 if has ("autocmd")
   au BufNewFile,BufRead *.q set filetype=q         " add q filetype
   au FileType q set omnifunc=OmniQ                 " enable omnicomplete for q
+  au FileType python set omnifunc=pythoncomplete#Complete
 endif
 
 "*****************************************************************************
