@@ -88,6 +88,7 @@ vmap <leader><Up> [egv
 vmap <leader><Down> ]egv
 " switch off search highlight
 map <silent> <leader>q	:q<CR>
+map <silent> <leader>qa	:qa<CR>
 map <silent> <leader>wq	:wq<CR>
 map <leader>W :w !sudo tee $<CR>
 " easier window navigation
