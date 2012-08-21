@@ -36,7 +36,7 @@
 	url = https://github.com/vim-scripts/TaskList.vim.git
 [submodule ".vimfiles/bundle/vim-colors-solarized"]
 	path = .vimfiles/bundle/vim-colors-solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
+	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule ".vimfiles/bundle/vim-fugitive"]
 	path = .vimfiles/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
@@ -46,9 +46,6 @@
 [submodule ".vimfiles/bundle/vim-unimpaired"]
 	path = .vimfiles/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule ".vimfiles/bundle/upAndDown"]
-	path = .vimfiles/bundle/upAndDown
-	url = https://github.com/vim-scripts/upAndDown.git
 [submodule ".vimfiles/bundle/ZoomWin"]
 	path = .vimfiles/bundle/ZoomWin
 	url = https://github.com/vim-scripts/ZoomWin.git
