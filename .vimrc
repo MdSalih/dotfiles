@@ -1,6 +1,7 @@
 "*****************************************************************************
 " Init
 "*****************************************************************************
+set nocompatible
 if ! len(glob("$HOME/.vim_backup/"))               "  Create backup dir if not exist
   echomsg "backup directory $HOME/.vim_backup doesn't exist - creating..."
   silent !mkdir $HOME/.vim_backup > /dev/null 2&1
@@ -13,7 +14,6 @@ let g:solarized_termcolors=256                     " For solarized colourscheme
 "*****************************************************************************
 " General Settings
 "*****************************************************************************
-set nocompatible
 set backspace=indent,eol,start                     " backspace works across lines
 set hidden                                         " hide buffers, dont close
 set history=10000                                  " 10000 command history
@@ -81,6 +81,11 @@ map <silent> <leader>cs <ESC>:noh<CR>
 nnoremap ' `
 map <leader>, <C-^>
 map <leader>ls :buffers<CR>
+" move text up/down with unimpared plugin
+nmap <leader><Up> [e
+nmap <leader><Down> ]e
+vmap <leader><Up> [egv
+vmap <leader><Down> ]egv
 " switch off search highlight
 map <silent> <leader>q	:q<CR>
 map <silent> <leader>wq	:wq<CR>
@@ -182,4 +187,5 @@ let g:tlRememberPosition =1
 " Powerline 
 " let g:Powerline_symbols = 'fancy'
 " MiniBufExplorer
+let g:miniBufExplorerMoreThanOne=3
 let g:miniBufExplSplitBelow=0
