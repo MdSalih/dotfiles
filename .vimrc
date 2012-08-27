@@ -10,6 +10,7 @@ endif
 set runtimepath+=$HOME/.vimfiles                   " set custom runtimepath
 call pathogen#infect()                             " pathogen load plugins
 let g:solarized_termcolors=256                     " For solarized colourscheme
+let &titleold=hostname()                           " Set hostname as title on exit
 
 "*****************************************************************************
 " General Settings
