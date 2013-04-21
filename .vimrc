@@ -191,3 +191,6 @@ let g:tlRememberPosition =1
 " MiniBufExplorer
 let g:miniBufExplorerMoreThanOne=3
 let g:miniBufExplSplitBelow=0
+
+" SnipMate
+source $HOME/.vimfiles/bundle/vim-snipmate/after/plugin/snipMate.vim
