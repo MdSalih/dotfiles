@@ -12,7 +12,7 @@ echo "Using [ $dfpath ] as dotfiles path";
 
 # Backup existing files
 echo "Backing up existing dotfiles/settings"
-files=( ".screenrc" ".vimfiles" ".vimrc" ".aliases" ".gitconfig" ".gitignore" ".bash_profile")
+files=( ".screenrc" ".vimfiles" ".vimrc" ".aliases" ".gitconfig" ".gitignore" ".bash_profile" ".git-completion.bash" ".git-prompt.sh" ".bash_prompt")
 ts=`date +%s`
 for i in "${files[@]}"; do 
 	if [ -e $HOME/$i ]; then
