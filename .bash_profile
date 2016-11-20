@@ -14,3 +14,6 @@ shopt -s histappend # append to bash hist file, instead of overwritting
 shopt -s cdspell # auto correct typos in cd
 
 export TREE_CHARSET=ascii
+
+export QHOME=$HOME/apps/kdb/current
+alias q='rlwrap $QHOME/q'
