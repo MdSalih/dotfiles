@@ -173,6 +173,13 @@ map <leader>tl <Plug>TaskList
 map <leader>sl <Plug>CompView
 " ZoomWin
 map <leader><leader> <c-w>o
+" Signify
+nmap ]h <plug>(signify-next-hunk)
+nmap [h <plug>(signify-prev-hunk)
+" Ack
+nnoremap <leader>a :Ack! -q<space>
+nnoremap <leader>s :Ack<CR>
+
 "*****************************************************************************
 " Auto Commands
 "*****************************************************************************
@@ -253,3 +260,10 @@ let g:miniBufExplSplitBelow=0
 
 " SnipMate
 source $HOME/.vimfiles/plugged/vim-snipmate/after/plugin/snipMate.vim
+
+" Signify
+let g:signify_vcs_list = [ 'git' ]
+
+" Ack
+let g:ack_use_cword_for_empty_search = 1
+let g:ackpreview = 1
