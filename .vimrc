@@ -8,9 +8,48 @@ if ! len(glob("$HOME/.vim_backup/"))               "  Create backup dir if not e
 endif
 
 set runtimepath+=$HOME/.vimfiles                   " set custom runtimepath
-call pathogen#infect()                             " pathogen load plugins
-let g:solarized_termcolors=256                     " For solarized colourscheme
 let &titleold=hostname()                           " Set hostname as title on exit
+" *****************************************************************************
+" Plugins
+" *****************************************************************************
+call plug#begin('~/.vimfiles/plugged')             " vim-plug(in) management
+Plug 'vim-scripts/FuzzyFinder'                     " Find files
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-scripts/compview'                        " Search matches in seperate window
+Plug 'sjl/gundo.vim'                               " Visualise undo tree
+Plug 'vim-scripts/L9'                              " dependecy for fuzzyfinder
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] } " Nerdtree file browser
+Plug 'myusuf3/numbers.vim'                         " Intelligent line numbers (relative vs. absolute)
+" Plug 'bsl/obviousmode'
+" Plug 'ervandew/supertab'
+Plug 'godlygeek/tabular'                           " Align text
+Plug 'majutsushi/tagbar'                           " Tags in window
+" Plug 'vim-scripts/taglist.vim'
+" Plug 'vim-scripts/TaskList.vim'
+Plug 'altercation/vim-colors-solarized'            " solarized colour scheme
+Plug 'tpope/vim-fugitive'                          " Git integration
+Plug 'junegunn/gv.vim'                             " Git commit browser
+Plug 'jpalardy/vim-slime'                          " Send code to a REPL
+Plug 'tpope/vim-unimpaired'                        " keyboard shortcuts
+Plug 'vim-scripts/ZoomWin'                         " zoom window
+"Plug 'Lokaltog/vim-powerline'                      " powerline at bottom
+Plug 'vim-airline/vim-airline'                     " airline at bottom
+Plug 'vim-airline/vim-airline-themes'              " airline themes
+Plug 'garbas/vim-snipmate'                         " snippets management
+Plug 'tomtom/tlib_vim'                             " utilities needed by snipmate
+Plug 'MarcWeber/vim-addon-mw-utils'                " more utilities needed by snipmate
+Plug 'honza/vim-snippets'                          " some snippets
+" Plug 'Valloric/YouCompleteMe', { 'do' : '~/.vimfiles/plugged/YouCompleteMe/install.py  --clang-completer' }
+Plug 'katusk/vim-qkdb-syntax'                      " kdb syntax highlighting
+Plug 'mhinz/vim-signify'                           " git gutter
+Plug 'vim-scripts/AutoComplPop'                    " auto complete populator
+Plug 'mileszs/ack.vim'                             " vim ack plugin
+Plug 'ntpeters/vim-better-whitespace'              " highlight trailing whitespace
+Plug 'plasticboy/vim-markdown'                     " vim markdown
+
+" Add plugins & runtimepath
+call plug#end()
 
 "*****************************************************************************
 " General Settings
@@ -111,11 +150,17 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <leader>ex :NERDTreeToggle<CR>
 " FuzzyFinder
 map <leader>ff :FufFile<CR>
-map <leader>fs :FufFile **/<CR>
-map <leader>ft :FufTag<CR>
-map <leader>fl :FufLine<CR>
-map <leader>fb :FufBuffer<CR>
 map <leader>fr :FufRenewCache<CR>
+"junegunn fzf
+map <leader>fs :FZF<CR>
+map <leader>ft :Tags<CR>
+map <leader>fl :BLines<CR>                " lines in current buffer
+map <leader>fL :Lines<CR>                 " lines in loaded buffers
+map <leader>fb :Buffers<CR>
+map <leader>fc :BCommits<CR>              " commits for current buffer
+map <leader>fC :Commits<CR>               " all commits
+
+
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
 " TagBar
@@ -151,6 +196,20 @@ endfunction
 "*****************************************************************************
 " Plugins
 "*****************************************************************************
+" Solarized
+let g:solarized_termcolors=256                     " For solarized colourscheme
+
+" vim-airline theme
+let g:airline_theme='solarized'
+
+" junegunn fzf
+"
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-k': 'vsplit' }
+
 " SuperTab defaults
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<C-X><C-O>"
@@ -186,11 +245,11 @@ let g:tagbar_type_q = {
 " TaskList
 let g:tlTokenList = ['TODO', 'FIXME', 'XXX', 'CHAT']
 let g:tlRememberPosition =1
-" Powerline 
+" Powerline
 " let g:Powerline_symbols = 'fancy'
 " MiniBufExplorer
 let g:miniBufExplorerMoreThanOne=3
 let g:miniBufExplSplitBelow=0
 
 " SnipMate
-source $HOME/.vimfiles/bundle/vim-snipmate/after/plugin/snipMate.vim
+source $HOME/.vimfiles/plugged/vim-snipmate/after/plugin/snipMate.vim
