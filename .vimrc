@@ -39,7 +39,7 @@ Plug 'garbas/vim-snipmate'                         " snippets management
 Plug 'tomtom/tlib_vim'                             " utilities needed by snipmate
 Plug 'MarcWeber/vim-addon-mw-utils'                " more utilities needed by snipmate
 Plug 'honza/vim-snippets'                          " some snippets
-Plug 'Valloric/YouCompleteMe', { 'do' : '~/.vimfiles/plugged/YouCompleteMe/install.py  --clang-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do' : '~/.vimfiles/plugged/YouCompleteMe/install.py  --clang-completer' }
 Plug 'katusk/vim-qkdb-syntax'                      " kdb syntax highlighting
 Plug 'mhinz/vim-signify'                           " git gutter
 Plug 'vim-scripts/AutoComplPop'                    " auto complete populator
