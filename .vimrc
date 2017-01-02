@@ -3,7 +3,6 @@
 "*****************************************************************************
 set nocompatible
 if ! len(glob("$HOME/.vim_backup/"))               "  Create backup dir if not exist
-  echomsg "backup directory $HOME/.vim_backup doesn't exist - creating..."
   silent !mkdir $HOME/.vim_backup > /dev/null 2&1
 endif
 
@@ -40,7 +39,7 @@ Plug 'garbas/vim-snipmate'                         " snippets management
 Plug 'tomtom/tlib_vim'                             " utilities needed by snipmate
 Plug 'MarcWeber/vim-addon-mw-utils'                " more utilities needed by snipmate
 Plug 'honza/vim-snippets'                          " some snippets
-" Plug 'Valloric/YouCompleteMe', { 'do' : '~/.vimfiles/plugged/YouCompleteMe/install.py  --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do' : '~/.vimfiles/plugged/YouCompleteMe/install.py  --clang-completer' }
 Plug 'katusk/vim-qkdb-syntax'                      " kdb syntax highlighting
 Plug 'mhinz/vim-signify'                           " git gutter
 Plug 'vim-scripts/AutoComplPop'                    " auto complete populator
@@ -92,7 +91,7 @@ if has('gui_running')                              " for solarized colourscheme
 else
   set background=dark
 endif
-colorscheme solarized
+silent! colorscheme solarized
 
 "*****************************************************************************
 " Visual Cues
@@ -259,7 +258,7 @@ let g:miniBufExplorerMoreThanOne=3
 let g:miniBufExplSplitBelow=0
 
 " SnipMate
-source $HOME/.vimfiles/plugged/vim-snipmate/after/plugin/snipMate.vim
+silent! source $HOME/.vimfiles/plugged/vim-snipmate/after/plugin/snipMate.vim
 
 " Signify
 let g:signify_vcs_list = [ 'git' ]
@@ -267,3 +266,6 @@ let g:signify_vcs_list = [ 'git' ]
 " Ack
 let g:ack_use_cword_for_empty_search = 1
 let g:ackpreview = 1
+
+" Slime
+let g:slime_target = "tmux"
