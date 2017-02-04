@@ -45,4 +45,7 @@ fi
 echo "Sourcing new .bash_profile"
 . ~/.bash_profile
 
+# Install vim plugins
+vim +PlugInstall +qall
+
 echo "All done"
