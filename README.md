@@ -15,5 +15,3 @@ Execute the `bootstrap.sh` script to setup dotfiles. Pass path to dotfiles direc
 ```bash
 ~/git/github/dotfiles/bootstrap.sh ~/git/github/dotfiles
 ```
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/8d358d13bb221e5dd67714b12c3b2bf7 "githalytics.com")](http://githalytics.com/MdSalih/dotfiles)
