@@ -2,7 +2,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 die () {
-	echo 1>&2 "$@"
+	echo 2>&1 "$@"
 	exit 1
 }
 
