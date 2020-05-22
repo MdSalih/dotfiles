@@ -1,12 +1,13 @@
 #!/bin/bash
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 die () {
 	echo 1>&2 "$@"
 	exit 1
 }
 
-# Check first argument, expect path to dotfiles
-[ "$#" -eq 1 ] || die "Expected 1 argument - dotfiles path. eg. ~/.dotfiles"
-dfpath=$1 
+# Check first argument, expect path to dotfiles. Default to script dir
+dfpath=${1:-$SCRIPT_DIR}
 [ -d $dfpath ] || die "Invalid dotfiles path - directory [ $dfpath ] doesn't exist"
 echo "Using [ $dfpath ] as dotfiles path";
 
