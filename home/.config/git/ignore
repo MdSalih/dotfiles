@@ -12,3 +12,6 @@ Session.vim
 tags
 # tool state
 .direnv/
+
+# Claude Code local settings
+**/.claude/settings.local.json
