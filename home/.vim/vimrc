@@ -1,0 +1,237 @@
+" ~/.vim/vimrc  (Vim 9.x; degrades gracefully on 8.2 and with no plugins installed)
+" Vim reads ~/.vimrc BEFORE ~/.vim/vimrc, so retire the old ~/.vimrc symlink.
+" Neovim does not read this file; see ~/.config/nvim (kickstart.nvim) instead.
+
+" Sensible upstream defaults: filetype/syntax on, incsearch, scrolloff, mouse, etc.
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
+" ---------------------------------------------------------------------------
+" State dirs (XDG): backups, swap and persistent undo, private to the user
+" ---------------------------------------------------------------------------
+let s:state = (empty($XDG_STATE_HOME) ? expand('~/.local/state') : $XDG_STATE_HOME) . '/vim'
+for s:d in ['backup', 'swap', 'undo']
+  if !isdirectory(s:state . '/' . s:d)
+    call mkdir(s:state . '/' . s:d, 'p', 0700)
+  endif
+endfor
+let &backupdir = s:state . '/backup//'      " trailing // = full path in name (8.1.0251+)
+let &directory = s:state . '/swap//'
+let &undodir   = s:state . '/undo//'
+set backup writebackup undofile
+" keep the default 'backupskip' (/tmp/*, $TMPDIR/*): do not copy temp files
+" such as sudoedit/pass/crontab buffers into the backup dir.
+
+" ---------------------------------------------------------------------------
+" Plugins (vim-plug). Skipped entirely if plug.vim is not installed.
+" Install: ./bootstrap.sh --plugins   (or :PlugInstall)
+" ---------------------------------------------------------------------------
+let s:have_plug = filereadable(expand('~/.vim/autoload/plug.vim'))
+if s:have_plug
+  call plug#begin('~/.vim/plugged')
+  " finding things
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }   " binary only; does not touch ~/.bashrc
+  Plug 'junegunn/fzf.vim'
+  Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+  Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+  " git
+  Plug 'tpope/vim-fugitive'
+  Plug 'junegunn/gv.vim'
+  Plug 'mhinz/vim-signify'
+  " editing
+  Plug 'tpope/vim-unimpaired'
+  Plug 'godlygeek/tabular'
+  Plug 'mbbill/undotree'                         " replaces gundo (no python needed)
+  Plug 'ntpeters/vim-better-whitespace'
+  Plug 'jpalardy/vim-slime'
+  " look
+  Plug 'lifepillar/vim-solarized8'               " true-colour solarized
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  " languages
+  Plug 'katusk/vim-qkdb-syntax'
+  Plug 'preservim/vim-markdown'
+  Plug 'hashivim/vim-terraform'                  " terraform
+  " LSP + completion written in vim9script (replaces AutoComplPop/YCM)
+  if v:version >= 900
+    Plug 'yegappan/lsp'
+  endif
+  call plug#end()                                " also runs: filetype plugin indent on | syntax enable
+endif
+
+" ---------------------------------------------------------------------------
+" General
+" ---------------------------------------------------------------------------
+set hidden
+set history=10000
+set updatetime=300                               " faster CursorHold / signify updates
+set ignorecase smartcase
+set nomodeline                                   " was modelines=0; same intent, explicit
+set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+set nowrap
+set number relativenumber                        " replaces numbers.vim
+set splitbelow splitright
+set title
+let &titleold = hostname()
+set hlsearch showmatch matchtime=5
+set laststatus=2
+set belloff=all
+set scrolloff=3 sidescrolloff=3
+set completeopt=menuone,noinsert,noselect
+if has('patch-8.1.1880') | set completeopt+=popup | endif
+set wildmode=longest:full,full
+set tags=./tags;/,$HOME/.vimtags
+
+if executable('rg')                              " :grep uses ripgrep (replaces ack.vim)
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
+endif
+
+" ---------------------------------------------------------------------------
+" Colours: 24-bit when the terminal supports it (incl. tmux-256color)
+" ---------------------------------------------------------------------------
+if has('termguicolors') && ($COLORTERM =~# 'truecolor\|24bit' || !empty($TMUX))
+  if &term =~# '^\(tmux\|screen\)'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  endif
+  set termguicolors
+endif
+set background=dark
+silent! colorscheme solarized8
+let g:airline_theme = 'solarized'
+
+" ---------------------------------------------------------------------------
+" Mappings (non-recursive; comments never on the same line as a mapping)
+" ---------------------------------------------------------------------------
+let mapleader = ','
+command! W w
+command! Q q
+inoremap jj <Esc>
+nnoremap ' `
+nnoremap <leader><CR> o<Esc>
+nnoremap <silent> <leader>cs :nohlsearch<CR>
+nnoremap <leader>, <C-^>
+nnoremap <leader>ls :ls<CR>:b<Space>
+nnoremap <silent> <leader>q :q<CR>
+nnoremap <silent> <leader>Q :qa<CR>
+nnoremap <silent> <leader>wq :wq<CR>
+" write a root-owned file (Vim only; prefer `sudoedit file`)
+nnoremap <leader>W :w !sudo tee % >/dev/null<CR>:edit!<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <leader>rn :set relativenumber!<CR>
+" zoom: toggle current window into its own tab (replaces ZoomWin)
+nnoremap <silent> <leader><leader> :call <SID>ZoomToggle()<CR>
+" open tag definition in a vertical split
+nnoremap <A-]> :vsplit<CR>:execute 'tag ' . expand('<cword>')<CR>
+" grep word under cursor / prompt (ripgrep via 'grepprg', results in quickfix).
+" (was <leader>s, which made <leader>ss/<leader>sl wait for 'timeoutlen')
+nnoremap <leader>* :silent grep! <C-r><C-w><CR>:copen<CR>
+nnoremap <leader>a :silent grep!<Space>
+
+" move lines with unimpaired
+nmap <leader><Up>   [e
+nmap <leader><Down> ]e
+xmap <leader><Up>   [egv
+xmap <leader><Down> ]egv
+
+if s:have_plug
+  " fugitive (:Gstatus/:Gcommit were removed; :Git is the replacement)
+  nnoremap <leader>gs :Git<CR>
+  nnoremap <leader>gc :Git commit<CR>
+  nnoremap <leader>gd :Gdiffsplit<CR>
+  nnoremap <leader>gw :Gwrite<CR>
+  nnoremap <leader>gr :Gread<CR>
+  nnoremap <leader>gl :GV<CR>
+  " fzf.vim (also replaces FuzzyFinder/L9 and compview)
+  nnoremap <leader>ff :Files<CR>
+  nnoremap <leader>fs :Files<CR>
+  nnoremap <leader>fg :GFiles?<CR>
+  nnoremap <leader>ft :Tags<CR>
+  nnoremap <leader>fl :BLines<CR>
+  nnoremap <leader>fL :Lines<CR>
+  nnoremap <leader>fb :Buffers<CR>
+  nnoremap <leader>fc :BCommits<CR>
+  nnoremap <leader>fC :Commits<CR>
+  nnoremap <leader>fr :Rg<Space>
+  nnoremap <leader>tl :Rg TODO\|FIXME\|XXX<CR>
+  nnoremap <leader>ex :NERDTreeToggle<CR>
+  nnoremap <leader>tb :TagbarToggle<CR>
+  nnoremap <leader>u  :UndotreeToggle<CR>
+  nnoremap <silent> <leader>ss :StripWhitespace<CR>
+  nmap ]h <Plug>(signify-next-hunk)
+  nmap [h <Plug>(signify-prev-hunk)
+endif
+
+" ---------------------------------------------------------------------------
+" Autocommands (grouped so re-sourcing doesn't duplicate them)
+" ---------------------------------------------------------------------------
+augroup dotfiles_vimrc
+  autocmd!
+  autocmd BufNewFile,BufRead *.q setfiletype q
+  autocmd FocusGained,BufEnter * silent! checktime
+  autocmd QuickFixCmdPost [^l]* cwindow
+augroup END
+
+" ---------------------------------------------------------------------------
+" Functions
+" ---------------------------------------------------------------------------
+function! s:ZoomToggle() abort
+  if exists('t:zoomed')
+    tabclose
+  else
+    tab split
+    let t:zoomed = 1
+  endif
+endfunction
+
+" ---------------------------------------------------------------------------
+" Plugin settings
+" ---------------------------------------------------------------------------
+let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
+let g:slime_target = 'tmux'
+let g:slime_default_config = { 'socket_name': 'default', 'target_pane': '{last}' }
+let g:slime_dont_ask_default = 1
+let g:undotree_SetFocusWhenToggle = 1
+let g:better_whitespace_enabled = 1
+let g:strip_whitespace_on_save = 0
+let g:vim_markdown_folding_disabled = 1
+let g:tagbar_type_q = { 'ctagstype': 'q', 'kinds': ['f:function', 'v:variables'] }
+
+" yegappan/lsp: only registers servers that are actually installed
+if s:have_plug && v:version >= 900
+  function! s:LspSetup() abort
+    if !exists('*LspAddServer') | return | endif
+    call LspOptionsSet({ 'autoComplete': v:true, 'showDiagWithVirtualText': v:false })
+    let l:servers = []
+    if executable('pyright-langserver')
+      call add(l:servers, { 'name': 'pyright', 'filetype': ['python'],
+            \ 'path': exepath('pyright-langserver'), 'args': ['--stdio'] })
+    elseif executable('pylsp')
+      call add(l:servers, { 'name': 'pylsp', 'filetype': ['python'], 'path': exepath('pylsp'), 'args': [] })
+    endif
+    if executable('bash-language-server')
+      call add(l:servers, { 'name': 'bashls', 'filetype': ['sh', 'bash'],
+            \ 'path': exepath('bash-language-server'), 'args': ['start'] })
+    endif
+    if !empty(l:servers) | call LspAddServer(l:servers) | endif
+    nnoremap gd :LspGotoDefinition<CR>
+    nnoremap gr :LspShowReferences<CR>
+    nnoremap K  :LspHover<CR>
+    nnoremap <leader>rr :LspRename<CR>
+    nnoremap [d :LspDiag prev<CR>
+    nnoremap ]d :LspDiag next<CR>
+  endfunction
+  augroup dotfiles_lsp
+    autocmd!
+    autocmd VimEnter * call s:LspSetup()
+  augroup END
+endif
+
+" machine-specific overrides (not in git)
+if filereadable(expand('~/.vim/vimrc.local'))
+  source ~/.vim/vimrc.local
+endif

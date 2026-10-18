@@ -1,4 +1,11 @@
+# repo-level ignores (global ignores are in home/.config/git/ignore)
 .DS_Store
-.svn
 *~
 *.swp
+# never commit machine-specific overrides
+*.local
+config.local
+local.conf
+# plugin managers download into these if the repo is used as $HOME/.vim directly
+home/.vim/plugged/
+home/.vim/autoload/plug.vim

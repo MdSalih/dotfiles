@@ -1,0 +1,36 @@
+# Copy to ~/.config/git/config.local and keep only what applies to this machine.
+# Not tracked in git.
+
+# --- credentials -----------------------------------------------------------
+# GitHub CLI (any OS):      run `gh auth setup-git` (it writes the helper itself)
+# macOS keychain:
+# [credential]
+# 	helper = osxkeychain
+# Linux, in-memory for an hour:
+# [credential]
+# 	helper = cache --timeout=3600
+
+# --- sign commits with your SSH key (git >= 2.34) -----------------------------
+# [gpg]
+# 	format = ssh
+# [gpg "ssh"]
+# 	allowedSignersFile = ~/.config/git/allowed_signers
+# [user]
+# 	signingkey = ~/.ssh/id_ed25519.pub
+# [commit]
+# 	gpgsign = true
+# [tag]
+# 	gpgsign = true
+
+# --- delta as pager (if installed: https://github.com/dandavison/delta) ------
+# [core]
+# 	pager = delta
+# [interactive]
+# 	diffFilter = delta --color-only
+# [delta]
+# 	navigate = true
+# 	line-numbers = true
+
+# --- different identity for work repos -------------------------------------
+# [includeIf "gitdir:~/work/"]
+# 	path = ~/.config/git/work.inc
