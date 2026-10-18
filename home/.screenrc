@@ -1,0 +1,48 @@
+# ~/.screenrc (kept for hosts without tmux; tmux is the primary multiplexer)
+startup_message off
+autodetach on
+defscrollback 10000
+termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # 256 colours (screen 4.x)
+# truecolor on                                             # screen >= 5.0 only
+attrcolor b ".I"
+defbce on
+altscreen on
+nonblock on
+defflow off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]'
+
+# Window navigation: Ctrl+Alt+Left/Right, F3/F4
+bindkey ^[^[[D prev
+bindkey ^[^[[C next
+bindkey -k k3 prev
+bindkey -k k4 next
+
+# window numbering starts at 1
+bind c screen 1
+bind 0 select 10
+
+# split resizing
+bind + resize +5
+bind - resize -5
+bind = resize =
+
+# remove dangerous bindings (kill all, suspend, flow control, hardcopy)
+bind ^\
+bind \\
+bind ^h
+bind h
+bind ^Q
+bind q
+bind ^S
+bind s
+
+# free F8/F9 for other programs
+bindkey -k k8
+bindkey -k k9
+
+# navigate regions
+bind j focus down
+bind k focus up
+bind t focus top
+bind b focus bottom

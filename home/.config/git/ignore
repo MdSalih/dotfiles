@@ -1,0 +1,17 @@
+# Global gitignore (git reads ~/.config/git/ignore by default)
+# OS junk
+.DS_Store
+._*
+Thumbs.db
+# editor junk
+*~
+*.swp
+*.swo
+.*.sw?
+Session.vim
+tags
+# tool state
+.direnv/
+
+# Claude Code local settings
+**/.claude/settings.local.json

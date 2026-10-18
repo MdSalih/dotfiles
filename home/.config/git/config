@@ -1,0 +1,90 @@
+# ~/.config/git/config (XDG location; git reads it in addition to ~/.gitconfig,
+# and ~/.gitconfig wins on conflicts, so retire the old ~/.gitconfig symlink).
+# Requires git >= 2.38 for everything below (tested with 2.43).
+
+[user]
+	name = Mohammad Noor
+	email = git@mdsalih.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	# no core.editor: git falls back to $VISUAL/$EDITOR, so one setting rules everything
+	# global excludes default to ~/.config/git/ignore (no core.excludesFile needed)
+
+[alias]
+	st = status -sb
+	ci = commit
+	co = checkout
+	sw = switch
+	rs = restore
+	br = branch
+	l  = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+	ll = log --abbrev-commit --stat
+	last = log -1 HEAD --stat
+	amend = commit --amend --no-edit
+	unstage = restore --staged
+	# name of the remote's default branch (main/master/...), without hard-coding it
+	default-branch = "!f() { b=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null) && { echo \"${b#origin/}\"; return; }; for c in main master; do git show-ref --quiet --verify \"refs/heads/$c\" && { echo \"$c\"; return; }; done; git config init.defaultBranch || echo main; }; f"
+	ma = "!git switch \"$(git default-branch)\""
+	# delete local branches already merged into the default branch
+	tidy = "!d=$(git default-branch); git branch --merged \"$d\" --format='%(refname:short)' | grep -vxF -e \"$d\" -e \"$(git branch --show-current)\" | while read -r b; do git branch -d \"$b\"; done"
+
+[push]
+	autoSetupRemote = true      # first `git push` on a new branch sets upstream (2.37+)
+	followTags = true
+
+[pull]
+	rebase = true               # or: ff = only, if you prefer to rebase/merge explicitly
+
+[fetch]
+	prune = true
+	prunetags = true
+
+[rebase]
+	autoStash = true
+	autoSquash = true
+	updateRefs = true           # 2.38+: keep stacked branches pointing at rewritten commits
+
+[merge]
+	conflictStyle = zdiff3      # 2.35+: shows the common ancestor in conflicts
+	tool = vimdiff
+
+[mergetool]
+	keepBackup = false
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
+	colorMovedWS = allow-indentation-change
+	mnemonicPrefix = true
+	renames = copies
+	tool = vimdiff
+
+[difftool]
+	prompt = false
+
+[rerere]
+	enabled = true
+	autoupdate = true
+
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[column]
+	ui = auto
+[commit]
+	verbose = true
+[help]
+	autocorrect = prompt
+
+# Clone/fetch over https (works everywhere), push over ssh (uses your key)
+[url "git@github.com:"]
+	pushInsteadOf = https://github.com/
+
+# Machine-specific settings (credential helper, signing key, delta, work email).
+# Not in git; see config.local.example in the dotfiles repo.
+[include]
+	path = config.local

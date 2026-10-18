@@ -1,0 +1,21 @@
+name: lint
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck tmux vim
+          else
+            brew install shellcheck tmux vim
+          fi
+      - name: Lint and smoke test
+        run: ./test/run.sh
